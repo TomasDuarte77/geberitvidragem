@@ -1,0 +1,112 @@
+.editar-limites-container {
+  background-color: #222;
+  color: #eee;
+  padding: 20px;
+  border-radius: 8px;
+  min-width: 320px;
+  max-width: 400px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  position: relative; 
+}
+
+.editar-limites-container h2 {
+  margin-bottom: 20px;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #fff;
+  text-align: center;
+}
+
+.editar-limites-container select {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 5px;
+  border: 1px solid #444;
+  background-color: #333;
+  color: #eee;
+  margin-bottom: 20px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.editar-limites-container select:focus {
+  outline: none;
+  border-color: #00bcd4;
+  box-shadow: 0 0 5px #00bcd4;
+}
+
+.editar-limites-container div {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.editar-limites-container label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #ddd;
+}
+
+.editar-limites-container input[type="number"] {
+  margin-top: 5px;
+  padding: 8px 10px;
+  border-radius: 5px;
+  border: 1px solid #444;
+  background-color: #333;
+  color: #eee;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.editar-limites-container input[type="number"]:focus {
+  outline: none;
+  border-color: #00bcd4;
+  box-shadow: 0 0 5px #00bcd4;
+}
+
+
+.editar-limites-container button:not(.btn-sair-icon) {
+  width: 100%;
+  background-color: #00bcd4;
+  border: none;
+  padding: 12px 0;
+  border-radius: 5px;
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.editar-limites-container button:not(.btn-sair-icon):hover {
+  background-color: #00acc1;
+}
+
+.btn-sair-icon {
+  all: unset;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #eee;
+  font-size: 1.2rem;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  transition: color 0.3s;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.btn-sair-icon:hover {
+  color: #ef4444;
+  background: none;
+}

@@ -1,0 +1,99 @@
+.consulta-container {
+  background-color: #2d3748;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.consulta-title {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 24px;
+}
+
+.botoes-tipos {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.botoes-tipos button {
+  background-color: #00bcd4;
+  border: none;
+  border-radius: 8px;
+  color: black;
+  padding: 10px 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  min-width: 120px;
+}
+
+.botoes-tipos button:hover {
+  background-color: #00acc1;
+  transform: scale(1.05);
+}
+
+.botoes-tipos button:focus {
+  outline: 2px solid #00acc1;
+  outline-offset: 2px;
+}
+
+.tabela-medicoes {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.tabela-medicoes thead {
+  background-color: #1a202c;
+}
+
+.tabela-medicoes th,
+.tabela-medicoes td {
+  padding: 10px 12px;
+  border: 1px solid #444c56;
+  text-align: left;
+}
+
+.tabela-medicoes tbody tr:nth-child(even) {
+  background-color: #394754;
+}
+
+.tabela-medicoes tbody tr:hover {
+  background-color: #4a5a6a;
+  cursor: default;
+  transition: background-color 0.2s ease;
+}
+
+p {
+  text-align: center;
+  font-style: italic;
+  margin-top: 32px;
+}
+
+
+@media (max-width: 768px) {
+  .botoes-tipos {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .botoes-tipos button {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .tabela-medicoes th,
+  .tabela-medicoes td {
+    font-size: 12px;
+    padding: 8px 10px;
+  }
+}

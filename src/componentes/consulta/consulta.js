@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { db } from '../../firebase';
-import { collection, getDocs, doc, updateDoc } from 'firebase/firestore';
+import { collection, getDocs, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import './consulta.css';
 
 function Consulta() {
@@ -32,19 +32,16 @@ function Consulta() {
     fetchMedicoes();
   }, [colecaoSelecionada]);
 
-  
   const iniciarEdicao = (id, valorAtual) => {
     setEditandoId(id);
     setValorEditado(valorAtual);
   };
 
-  
   const salvarEdicao = async (id) => {
     try {
       const docRef = doc(db, colecaoSelecionada, id);
-      
       await updateDoc(docRef, { valor: valorEditado });
-      
+
       setMedicoes((prev) =>
         prev.map((item) =>
           item.id === id ? { ...item, valor: valorEditado } : item
@@ -57,12 +54,23 @@ function Consulta() {
     }
   };
 
- 
+  const apagarMedicao = async (id) => {
+    const confirmar = window.confirm("Tens a certeza que queres apagar esta medição?");
+    if (!confirmar) return;
+
+    try {
+      await deleteDoc(doc(db, colecaoSelecionada, id));
+      setMedicoes((prev) => prev.filter((item) => item.id !== id));
+    } catch (error) {
+      console.error("Erro ao apagar medição:", error);
+      alert('Erro ao apagar a medição. Tenta novamente.');
+    }
+  };
+
   const onKeyDownHandler = (e, id) => {
     if (e.key === 'Enter') {
       salvarEdicao(id);
     } else if (e.key === 'Escape') {
-     
       setEditandoId(null);
     }
   };
@@ -90,6 +98,7 @@ function Consulta() {
               <th>Célula</th>
               <th>Medição</th>
               <th>Valor</th>
+              <th>Ações</th>
             </tr>
           </thead>
           <tbody>
@@ -120,6 +129,13 @@ function Consulta() {
                       {item.valor}
                     </span>
                   )}
+                </td>
+                <td>
+                  <div className="apagar">
+                  <button onClick={() => apagarMedicao(item.id)} style={{ color: 'white' }}>
+                    Apagar
+                  </button>
+                  </div>
                 </td>
               </tr>
             ))}

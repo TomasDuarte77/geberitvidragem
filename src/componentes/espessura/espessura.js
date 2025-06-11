@@ -89,7 +89,7 @@ function Espessura() {
       });
 
       alert("Dados guardados com sucesso!");
-      setForm({ turno: '', data: '', tipo: '', celula: '', medicao: '', valor: '' });
+      
 
       if (data === dataGrafico) {
         obterMedicoesPorData(dataGrafico);
@@ -101,7 +101,7 @@ function Espessura() {
 
   const celulaOptions =
     form.tipo === 'Célula' ? ['1', '2'] :
-    form.tipo === 'Cabine' ? ['3', '4'] : [];
+    form.tipo === 'Cabine' ? ['2', '4','5'] : [];
 
   useEffect(() => {
     if (dataGrafico) {

@@ -97,3 +97,32 @@ p {
     padding: 8px 10px;
   }
 }
+.apagar {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.apagar button {
+  background-color: #00bcd4;
+  border: none;
+  border-radius: 8px;
+  color: black;
+  padding: 5px 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  min-width: 120px;
+}
+
+.apagar button:hover {
+  background-color: #00acc1;
+  transform: scale(1.05);
+}
+
+.apagar button:focus {
+  outline: 2px solid #00acc1;
+  outline-offset: 2px;
+}

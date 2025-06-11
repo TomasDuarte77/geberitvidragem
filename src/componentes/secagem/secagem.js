@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import '../../App.css';
 import { db } from '../../firebase.js';
@@ -9,8 +8,6 @@ function Secagem() {
   const [form, setForm] = useState({
     turno: '',
     data: '',
-    tipo: '',
-    celula: '',
     medicao: '',
     valor: ''
   });
@@ -19,10 +16,14 @@ function Secagem() {
   const [dadosProcessados, setDadosProcessados] = useState([]);
   const [fullscreen, setFullscreen] = useState(false);
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
 
   const obterMedicoesPorData = async (dataStr) => {
-    const q = query(collection(db, "medicoes_secagem"), where("data", "==", dataStr));
+    const q = query(
+      collection(db, "medicoes_secagem"),
+      where("data", "==", dataStr)
+    );
     const snapshot = await getDocs(q);
     const dados = snapshot.docs.map(doc => doc.data());
 
@@ -35,7 +36,8 @@ function Secagem() {
       if (resultado[turno]) resultado[turno][medicao].push(valor);
     });
 
-    const calcularMedia = (lista) => lista.length > 0 ? lista.reduce((a, b) => a + b, 0) / lista.length : null;
+    const calcularMedia = (lista) =>
+      lista.length > 0 ? lista.reduce((a, b) => a + b, 0) / lista.length : null;
 
     const chartData = [];
     ['A', 'B', 'C'].forEach(turno => {
@@ -56,14 +58,16 @@ function Secagem() {
     chartData.push({ nome: `Geral - Medição 2`, valor: calcularMedia(todas2)?.toFixed(2) });
     chartData.push({ nome: `Geral - Total`, valor: calcularMedia(todasGeral)?.toFixed(2) });
 
-    setDadosProcessados(chartData.map(d => ({ nome: d.nome, valor: d.valor !== null ? +d.valor : null })));
+    setDadosProcessados(
+      chartData.map(d => ({ nome: d.nome, valor: d.valor !== null ? +d.valor : null }))
+    );
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { turno, data, tipo, celula, medicao, valor } = form;
-    if (!turno || !data || !tipo || !celula || !medicao || !valor) {
-      alert('Preenche todos os campos antes de salvar.');
+    const { turno, data, medicao, valor } = form;
+    if (!turno || !data || !medicao || !valor) {
+      alert('Preencha todos os campos antes de salvar.');
       return;
     }
 
@@ -72,11 +76,10 @@ function Secagem() {
         collection(db, "medicoes_secagem"),
         where("turno", "==", turno),
         where("data", "==", data),
-        where("tipo", "==", tipo),
-        where("celula", "==", celula),
         where("medicao", "==", medicao)
       );
       const snapshot = await getDocs(q);
+
       if (!snapshot.empty) {
         alert("Já existe uma medição para esta combinação.");
         return;
@@ -89,7 +92,7 @@ function Secagem() {
       });
 
       alert("Dados guardados com sucesso!");
-      setForm({ turno: '', data: '', tipo: '', celula: '', medicao: '', valor: '' });
+     
 
       if (data === dataGrafico) {
         obterMedicoesPorData(dataGrafico);
@@ -98,10 +101,6 @@ function Secagem() {
       console.error("Erro ao guardar:", error);
     }
   };
-
-  const celulaOptions =
-    form.tipo === 'Célula' ? ['1', '2'] :
-    form.tipo === 'Cabine' ? ['3', '4'] : [];
 
   useEffect(() => {
     if (dataGrafico) {
@@ -116,7 +115,7 @@ function Secagem() {
       <h1 className="header">Registrar Medição Secagem</h1>
 
       <form className="form-section" onSubmit={handleSubmit}>
-        {['turno', 'data', 'tipo', 'celula', 'medicao', 'valor'].map((campo) => (
+        {['turno', 'data', 'medicao', 'valor'].map((campo) => (
           <div className="form-item" key={campo}>
             <label>{campo[0].toUpperCase() + campo.slice(1)}:</label>
             {campo === 'data' || campo === 'valor' ? (
@@ -135,10 +134,12 @@ function Secagem() {
                 onChange={handleChange}
               >
                 <option value="">Selecionar</option>
-                {campo === 'turno' && ['A', 'B', 'C'].map(op => <option key={op}>{op}</option>)}
-                {campo === 'tipo' && ['Célula', 'Cabine'].map(op => <option key={op}>{op}</option>)}
-                {campo === 'celula' && celulaOptions.map(op => <option key={op}>{op}</option>)}
-                {campo === 'medicao' && ['Medição 1', 'Medição 2'].map(op => <option key={op}>{op}</option>)}
+                {campo === 'turno' && ['A', 'B', 'C'].map(op =>
+                  <option key={op}>{op}</option>
+                )}
+                {campo === 'medicao' && ['Medição 1', 'Medição 2'].map(op =>
+                  <option key={op}>{op}</option>
+                )}
               </select>
             )}
           </div>
